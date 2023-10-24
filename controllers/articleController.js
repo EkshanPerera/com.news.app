@@ -2,13 +2,13 @@ const asyncHandler = require("express-async-handler");
 const Article = require("../models/articleModel");
 //@desc Get all articles
 //@route GET /api/articles
-//@access private
+//@access public
 const getArticles = asyncHandler(async (req, res) => {
   try {
     const articles = await Article.find().populate('author', 'id username');
     res.status(200).json(articles);
   } catch (error) {
-    res.status(400);
+    res.status(404);
     throw new Error(error.message);
   }
 });
@@ -40,7 +40,7 @@ const createArticle = asyncHandler(async (req, res) => {
 
 //@desc Get article
 //@route GET /api/articles/:id
-//@access private
+//@access public
 const getArticle = asyncHandler(async (req, res) => {
   try {
     const article = await Article.findById(req.params.id).populate('author', 'id username');

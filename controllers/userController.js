@@ -60,10 +60,13 @@ const loginUser = asyncHandler(async (req, res) => {
         { expiresIn: "15m" }
       );
       res.status(200).json({ accessToken });
+    }else{
+      res.status(401);
+      throw new Error("Email or Password is not valid");
     }
   } catch (error) {
     res.status(401);
-    throw new Error("email or password is not valid");
+    throw new Error("Email or Password is not valid");
   }
 });
 
