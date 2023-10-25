@@ -18,7 +18,7 @@ const getArticles = asyncHandler(async (req, res) => {
 //@access private
 const createArticle = asyncHandler(async (req, res) => {
   const { title, description, content, image } = req.body;
-  if (!title || !description || !content) {
+  if (!title || !description || !content || !image) {
     res.status(400);
     throw new Error("All fields are mandatory !");
   }
@@ -76,7 +76,7 @@ const updateArticle = asyncHandler(async (req, res) => {
 const deleteArticle = asyncHandler(async (req, res) => {
   try {
     await Article.deleteOne({ _id: req.params.id });
-    res.status(200).json(article);
+    res.status(201).json({message:"deleted"});
   } catch (error) {
     res.status(400);
     throw new Error("Article not found");
